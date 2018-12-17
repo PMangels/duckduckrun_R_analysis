@@ -1,0 +1,59 @@
+---
+title: "duckduckrun"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+```
+
+## R Markdown
+
+```{r}
+setwd("/mnt/7E5A70665A701D59/Data/2018-2019/MMI/R/")
+scores_data <- read.csv("./csv_prepping/duckduckgo_scores.csv")
+games_played_data <- read.csv("./csv_prepping/duckduckgo_games_started.csv")
+
+highscores_data <- aggregate(scores_data$log, by=list(scores_data$version, scores_data$userId), max)
+colnames(highscores_data) <- c("version","userId","highscore")
+highscores_data <- highscores_data[order(highscores_data$version,highscores_data$userId),]
+rownames(highscores_data) <-1:nrow(highscores_data)
+highscores_split <- split(highscores_data,highscores_data$version)
+highscores_release <- highscores_split$release
+highscores_button <-highscores_split$button
+highscores_grouped <- group_by(highscores_data,version)
+
+
+meanscores_data <- aggregate(scores_data$log, by=list(scores_data$version, scores_data$userId), mean)
+colnames(meanscores_data) <- c("version","userId","meanscore")
+meanscores_data <- meanscores_data[order(meanscores_data$version,meanscores_data$userId),]
+rownames(meanscores_data) <- 1:nrow(meanscores_data)
+meanscores_split <- split(meanscores_data,meanscores_data$version)
+meanscores_release <- meanscores_split$release
+meanscores_button <-meanscores_split$button
+meanscores_grouped <- group_by(meanscores_data,version)
+
+games_played_data <- games_played_data[order(games_played_data$version,games_played_data$userId),]
+rownames(games_played_data) <-1:nrow(games_played_data)
+games_played_split <- split(games_played_data,games_played_data$version)
+games_played_release <- games_played_split$release
+games_played_button <-games_played_split$button
+games_played_grouped <- group_by(games_played_data,version)
+
+summarise(highscores_grouped, MeanHigh=formatC(mean(highscore,na.rm=TRUE),format="f",digits=2),SDHigh=formatC(sd(highscore,na.rm=TRUE),format="f",digits=2))
+summarise(meanscores_grouped, MeanMean=formatC(mean(meanscore,na.rm=TRUE),format="f",digits=2),SDMean=formatC(sd(meanscore,na.rm=TRUE),format="f",digits=2))
+summarise(games_played_grouped,MeanGames=formatC(mean(games,na.rm=TRUE),format="f",digits=2),SDGames=formatC(sd(games,na.rm=TRUE),format="f",digits=2))
+
+shapiro.test(highscores_release$highscore)
+shapiro.test(highscores_button$highscore)
+shapiro.test(meanscores_release$meanscore)
+shapiro.test(meanscores_button$meanscore)
+shapiro.test(games_played_button$games)
+shapiro.test(games_played_release$games)
+
+
+wilcox.test(highscores_release$highscore, highscores_button$highscore, alternative = "two.sided")
+wilcox.test(meanscores_release$meanscore, meanscores_button$meanscore, alternative = "two.sided")
+wilcox.test(games_played_release$games,games_played_button$games, alternative = "two.sided")
+```
