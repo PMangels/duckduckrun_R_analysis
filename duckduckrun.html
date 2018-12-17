@@ -224,76 +224,76 @@ summarise(highscores_grouped, MeanHigh=formatC(mean(highscore,na.rm=TRUE),format
 <pre><code>## # A tibble: 2 x 3
 ##   version MeanHigh SDHigh 
 ##   &lt;fct&gt;   &lt;chr&gt;    &lt;chr&gt;  
-## 1 button  5184.44  4854.62
-## 2 release 5160.33  4157.77</code></pre>
+## 1 button  5217.36  4624.47
+## 2 release 5131.15  4189.33</code></pre>
 <pre class="r"><code>summarise(meanscores_grouped, MeanMean=formatC(mean(meanscore,na.rm=TRUE),format=&quot;f&quot;,digits=2),SDMean=formatC(sd(meanscore,na.rm=TRUE),format=&quot;f&quot;,digits=2))</code></pre>
 <pre><code>## # A tibble: 2 x 3
 ##   version MeanMean SDMean 
 ##   &lt;fct&gt;   &lt;chr&gt;    &lt;chr&gt;  
-## 1 button  2480.63  1972.89
-## 2 release 2560.84  1769.28</code></pre>
+## 1 button  2487.75  1866.52
+## 2 release 2494.57  1748.68</code></pre>
 <pre class="r"><code>summarise(games_played_grouped,MeanGames=formatC(mean(games,na.rm=TRUE),format=&quot;f&quot;,digits=2),SDGames=formatC(sd(games,na.rm=TRUE),format=&quot;f&quot;,digits=2))</code></pre>
 <pre><code>## # A tibble: 2 x 3
 ##   version MeanGames SDGames
 ##   &lt;fct&gt;   &lt;chr&gt;     &lt;chr&gt;  
-## 1 button  7.62      8.76   
-## 2 release 9.58      11.12</code></pre>
+## 1 button  7.56      8.42   
+## 2 release 9.37      10.90</code></pre>
 <pre class="r"><code>shapiro.test(highscores_release$highscore)</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  highscores_release$highscore
-## W = 0.88474, p-value = 0.0002096</code></pre>
+## W = 0.89216, p-value = 0.0002026</code></pre>
 <pre class="r"><code>shapiro.test(highscores_button$highscore)</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  highscores_button$highscore
-## W = 0.81741, p-value = 1.562e-06</code></pre>
+## W = 0.81444, p-value = 4.47e-07</code></pre>
 <pre class="r"><code>shapiro.test(meanscores_release$meanscore)</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  meanscores_release$meanscore
-## W = 0.92549, p-value = 0.004669</code></pre>
+## W = 0.9265, p-value = 0.00329</code></pre>
 <pre class="r"><code>shapiro.test(meanscores_button$meanscore)</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  meanscores_button$meanscore
-## W = 0.87649, p-value = 6.492e-05</code></pre>
+## W = 0.88091, p-value = 3.754e-05</code></pre>
 <pre class="r"><code>shapiro.test(games_played_button$games)</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  games_played_button$games
-## W = 0.72588, p-value = 6.688e-09</code></pre>
+## W = 0.7297, p-value = 2.31e-09</code></pre>
 <pre class="r"><code>shapiro.test(games_played_release$games)</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  games_played_release$games
-## W = 0.70052, p-value = 8.455e-09</code></pre>
+## W = 0.67268, p-value = 1.067e-09</code></pre>
 <pre class="r"><code>wilcox.test(highscores_release$highscore, highscores_button$highscore, alternative = &quot;two.sided&quot;)</code></pre>
 <pre><code>## 
 ##  Wilcoxon rank sum test with continuity correction
 ## 
 ## data:  highscores_release$highscore and highscores_button$highscore
-## W = 1302, p-value = 0.712
+## W = 1522, p-value = 0.9356
 ## alternative hypothesis: true location shift is not equal to 0</code></pre>
 <pre class="r"><code>wilcox.test(meanscores_release$meanscore, meanscores_button$meanscore, alternative = &quot;two.sided&quot;)</code></pre>
 <pre><code>## 
 ##  Wilcoxon rank sum test with continuity correction
 ## 
 ## data:  meanscores_release$meanscore and meanscores_button$meanscore
-## W = 1346, p-value = 0.5011
+## W = 1567, p-value = 0.7262
 ## alternative hypothesis: true location shift is not equal to 0</code></pre>
 <pre class="r"><code>wilcox.test(games_played_release$games,games_played_button$games, alternative = &quot;two.sided&quot;)</code></pre>
 <pre><code>## 
 ##  Wilcoxon rank sum test with continuity correction
 ## 
 ## data:  games_played_release$games and games_played_button$games
-## W = 1594.5, p-value = 0.2176
+## W = 1879, p-value = 0.2557
 ## alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
 
