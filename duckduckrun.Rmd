@@ -5,7 +5,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(dplyr)
+library(dplyr,graphics)
 ```
 
 ## R Markdown
@@ -56,4 +56,25 @@ shapiro.test(games_played_release$games)
 wilcox.test(highscores_release$highscore, highscores_button$highscore, alternative = "two.sided")
 wilcox.test(meanscores_release$meanscore, meanscores_button$meanscore, alternative = "two.sided")
 wilcox.test(games_played_release$games,games_played_button$games, alternative = "two.sided")
+
+hist(highscores_button$highscore, freq=F, breaks=10, col='lightgreen',
+main="Highscores for players with buttons", xlab="Highscore");
+lines(density(highscores_button$highscore), col="green", lwd=2)
+hist(highscores_release$highscore, freq=F, breaks=10, col='lightblue',
+main="Highscores for players with release functionality", xlab="Highscore");
+lines(density(highscores_release$highscore), col="blue", lwd=2)
+
+hist(meanscores_button$meanscore, freq=F, breaks=10, col='lightgreen',
+main="Meanscores for players with buttons", xlab="Meanscore");
+lines(density(meanscores_button$meanscore), col="green", lwd=2)
+hist(meanscores_release$meanscore, freq=F, breaks=10, col='lightblue',
+main="Meanscores for players with release functionality", xlab="Meanscore");
+lines(density(meanscores_release$meanscore), col="blue", lwd=2)
+
+hist(games_played_button$games, freq=F, breaks=10, col='lightgreen',
+main="Games played for players with buttons", xlab="Games played");
+lines(density(games_played_button$games), col="green", lwd=2)
+hist(games_played_release$games, freq=F, breaks=10, col='lightblue',
+main="Games played for players with release functionality", xlab="Games played");
+lines(density(games_played_release$games), col="blue", lwd=2)
 ```
